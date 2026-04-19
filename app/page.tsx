@@ -68,7 +68,7 @@ export default function Home() {
               {openMenu === "about" && (
                 <TerminalBox title="whoami">
                   <p className="leading-relaxed">
-                    CS student building multi-agent systems and full stack applications.
+                    <TypewriterText text="CS student building multi-agent systems and full stack applications." delay={12} />
                   </p>
                 </TerminalBox>
               )}
@@ -83,7 +83,7 @@ export default function Home() {
               {openMenu === "email" && (
                 <TerminalBox title="ls contacts">
                   <a href="mailto:chloe.liqy7@gmail.com" className="block hover:text-white transition-colors">
-                    — chloe.liqy7 (at) gmail (dot) com
+                    <TypewriterText text="- chloe.liqy7 (at) gmail (dot) com" delay={12} />
                   </a>
                 </TerminalBox>
               )}
@@ -98,8 +98,16 @@ export default function Home() {
               {openMenu === "projects" && (
                 <TerminalBox title="git log --oneline">
                   <div className="space-y-2">
-                    <p><span className="text-violet-400/80"> Multi-Agent System</span></p>
-                    <p><span className="text-violet-400/80">GRC Assistant</span></p>
+                    <p>
+                      <span>
+                        <TypewriterText text="Multi-Agent System" delay={12} />
+                      </span>
+                    </p>
+                    <p>
+                      <span>
+                        <TypewriterText text="GRC Assistant" delay={12} startDelay={180} />
+                      </span>
+                    </p>
                   </div>
                 </TerminalBox>
               )}
@@ -124,17 +132,61 @@ export default function Home() {
 
 // TerminalBox used by nav menu to show content
 // May need to resize it later
-// May want to change the coour scheme to make it look more like ghostty
 function TerminalBox({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="absolute left-0 top-full mt-2 z-50 animate-in fade-in slide-in-from-top-1 duration-200">
       <div className="w-80 rounded-lg bg-[#121212] p-4 font-mono text-xs text-zinc-300 shadow-2xl border border-white/10">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-violet-400">{">"}</span>
-          <span className="typewriter-text text-sm">{title}</span>
+          <TypewriterText text={title} className="text-sm" />
         </div>
         <div className="opacity-90">{children}</div>
       </div>
     </div>
   );
+}
+
+function TypewriterText({
+  text,
+  className,
+  delay = 14,
+  startDelay = 0,
+}: {
+  text: string;
+  className?: string;
+  delay?: number;
+  startDelay?: number;
+}) {
+  const [visibleChars, setVisibleChars] = useState(0);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setVisibleChars(text.length);
+      return;
+    }
+
+    setVisibleChars(0);
+    let intervalId: number | null = null;
+    const timeoutId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        setVisibleChars((count) => {
+          if (count >= text.length) {
+            if (intervalId) window.clearInterval(intervalId);
+            return count;
+          }
+          return count + 1;
+        });
+      }, delay);
+    }, startDelay);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (intervalId) window.clearInterval(intervalId);
+    };
+  }, [text, delay, startDelay]);
+
+  return <span className={className}>{text.slice(0, visibleChars)}</span>;
 }
