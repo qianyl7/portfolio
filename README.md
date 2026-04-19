@@ -1,3 +1,5 @@
+# Portfolio
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -34,3 +36,20 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## CV Link Setup (Without Uploading CV to GitHub)
+
+This project reads the CV link from an environment variable:
+
+`NEXT_PUBLIC_CV_URL`
+
+1. Keep your CV in private storage (for example Vercel Blob, Google Drive, Dropbox, S3).
+1. Put the share URL in `.env.local`:
+
+```bash
+NEXT_PUBLIC_CV_URL="https://your-storage-link-to-cv.pdf"
+```
+
+1. In Vercel, set the same variable in Project Settings > Environment Variables.
+
+If `NEXT_PUBLIC_CV_URL` is not set, the CV item is shown as disabled.

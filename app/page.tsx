@@ -34,6 +34,7 @@ export default function Home() {
 
   const linkStyle = "relative group text-zinc-600 hover:text-violet-500 dark:text-zinc-400 dark:hover:text-violet-400 transition-colors py-2";
   const underlineStyle = "absolute bottom-0 left-0 w-0 h-0.5 bg-violet-500 transition-all duration-300 group-hover:w-full";
+  const cvUrl = process.env.NEXT_PUBLIC_CV_URL;
 
   // Main page layout
   // Content needs to be updated later
@@ -114,7 +115,12 @@ export default function Home() {
             </div>
 
             
-            <a href="/cv.pdf" target="_blank" className={linkStyle}>
+            <a 
+              href={cvUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={linkStyle}
+            >
               CV
               <span className={underlineStyle}></span>
             </a>
