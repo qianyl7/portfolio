@@ -51,13 +51,13 @@ export default function Home() {
               height={120}
               priority
             />
-            <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
+            <p className="text-base font-medium text-zinc-500 dark:text-zinc-400">
               Computer Science Student & Software Developer in Making
             </p>
           </div>
 
           
-          <nav ref={navRef} className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-sm font-medium sm:justify-start">
+          <nav ref={navRef} className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-base font-medium sm:justify-start">
             
             
             <div className="relative">
@@ -119,7 +119,7 @@ export default function Home() {
               <span className={underlineStyle}></span>
             </a>
             
-            <Link href="/one-more-thing" className="relative group italic text-violet-500 hover:text-violet-400 py-2">
+            <Link href="/game" className="relative group italic text-violet-500 hover:text-violet-400 py-2">
               One More Thing...
               <span className={underlineStyle}></span>
             </Link>
@@ -138,7 +138,7 @@ function TerminalBox({ title, children }: { title: string; children: React.React
       <div className="w-80 rounded-lg bg-[#121212] p-4 font-mono text-xs text-zinc-300 shadow-2xl border border-white/10">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-violet-400">{">"}</span>
-          <TypewriterText text={title} className="text-sm" />
+          <TypewriterText text={title} className="text-base" />
         </div>
         <div className="opacity-90">{children}</div>
       </div>
